@@ -1,0 +1,22 @@
+export default class Store {
+  #observers
+  constructor() {
+    this.#observers = []
+  }
+  registerObserver(...newObservers) {
+    console.log('newObservers: ', newObservers)
+    newObservers.forEach((observer) => this.#observers.push(observer))
+  }
+  unregisterObserver(targetObserver) {
+    this.observers = this.observers.filter((observer) => {
+      return observer !== targetObserver
+    })
+  }
+  notifyObservers(keys) {
+    this.observers.forEach((observer) => {
+      keys.forEach((key) => {
+        key === observer.key && observer.component.render()
+      })
+    })
+  }
+}
